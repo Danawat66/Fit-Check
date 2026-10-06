@@ -29,8 +29,8 @@ input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;bac
 <header class="hero"><div class="wrap">
 <div class="brand"><div class="logo">F</div><span>FitCheck</span></div>
 <h1>ประเมินสมรรถภาพทางกาย</h1>
-<p>ระบบประเมินสำหรับประชาชนอายุ 19–59 ปี อ้างอิงเกณฑ์กรมพลศึกษา พ.ศ. 2562</p>
-<span class="badge">DPE 2562 · Physical Fitness Assessment</span>
+<p>ประเมินสมรรถภาพทางกายโดยใช้เกณฑ์มาตรฐานกรมพลศึกษา พ.ศ. 2562 และกรอบองค์ประกอบสมรรถภาพของ ACSM</p>
+<span class="badge">DPE 2562 · ACSM Fitness Framework</span>
 </div></header>
 <main class="wrap">
 <section class="card">
@@ -44,7 +44,11 @@ input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;bac
 </div>
 </section>
 <section class="card">
-<div class="section-title"><div class="section-icon">02</div><div><h2>แบบทดสอบสมรรถภาพ</h2><p class="sub">กรอกเฉพาะรายการที่มีผลการทดสอบ</p></div></div>
+<div class="section-title"><div class="section-icon">02</div><div><h2>เกณฑ์มาตรฐานการประเมิน</h2><p class="sub">ใช้เกณฑ์กรมพลศึกษา พ.ศ. 2562 สำหรับรายการที่มีเกณฑ์อ้างอิง และจัดกลุ่มตามองค์ประกอบสมรรถภาพของ ACSM</p></div></div>
+<div class="note" style="margin-top:0">คะแนนระดับ 1–5 จะแสดงเมื่อรายการนั้นมีเกณฑ์มาตรฐานที่อ้างอิงได้โดยตรง ส่วนรายการที่ยังไม่มี cut-off ในเกณฑ์ DPE 2562 จะรายงานเป็นค่าผลการทดสอบเพื่อการเรียนรู้/ต้นแบบ</div>
+</section>
+<section class="card">
+<div class="section-title"><div class="section-icon">03</div><div><h2>แบบทดสอบสมรรถภาพ</h2><p class="sub">กรอกเฉพาะรายการที่มีผลการทดสอบ</p></div></div>
 <div class="tests">
 <div class="test"><div class="test-head"><div class="test-icon">GS</div><b>Gait Speed</b></div><small>เดิน 4 เมตร • กรอกเวลา (วินาที)</small><input id="gait" type="number" step=".01" placeholder="เช่น 3.50"></div>
 <div class="test"><div class="test-head"><div class="test-icon">1M</div><b>1 Mile Walk Test</b></div><small>กรอกเวลาเดินและ HR หลังทดสอบ</small><div class="grid"><input id="mileTime" type="number" step=".1" placeholder="นาที"><input id="mileHR" type="number" placeholder="HR bpm"></div></div>
@@ -59,10 +63,10 @@ input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;bac
 <div class="actions"><button class="btn primary" onclick="assess()">✓ ประเมินผล</button><button class="btn secondary" onclick="location.reload()">↻ ล้างข้อมูล</button></div>
 </section>
 <section class="card">
-<div class="section-title"><div class="section-icon">03</div><div><h2>ผลการประเมิน</h2><p class="sub">สรุปผลจากข้อมูลที่กรอก</p></div></div>
+<div class="section-title"><div class="section-icon">04</div><div><h2>ผลการประเมิน</h2><p class="sub">สรุปผลจากข้อมูลที่กรอก</p></div></div>
 <div id="out" class="result-box"><span style="color:#8a95a8">กรอกข้อมูลด้านบนแล้วกด “ประเมินผล”</span></div>
 </section>
-<div class="footer">FitCheck • Physical Fitness Assessment • DPE 2562</div>
+<div class="footer">FitCheck • Physical Fitness Assessment • DPE 2562 + ACSM</div>
 </main>
 <script>
 const ages=[[19,24],[25,29],[30,34],[35,39],[40,44],[45,49],[50,54],[55,59]];
@@ -82,7 +86,7 @@ function assess(){
  const g=document.getElementById('gait').value;if(g)html+='<div class="metric">Gait Speed<strong>'+(4/Number(g)).toFixed(2)+' m/s</strong></div>';
  const mt=document.getElementById('mileTime').value,mh=document.getElementById('mileHR').value;
  if(mt&&mh){const vo=132.853-(.0769*w*2.2046226)-(.3877*a)+(s==='male'?6.315:0)-(3.2649*Number(mt))-(.1565*Number(mh));html+='<div class="metric">Estimated VO₂max<strong>'+vo.toFixed(1)+'</strong><small>mL/kg/min</small></div>'}
- html+='</div><div class="note">รายการ Stork, T-Test, Illinois, Push-up และ Vertical Jump เป็นรายการเสริมสำหรับการเรียน/ต้นแบบ และยังไม่ใช้ cut-off DPE 2562 ในระบบนี้</div>';
+ html+='</div><div class="note">เกณฑ์หลักของระบบอ้างอิงกรมพลศึกษา พ.ศ. 2562 สำหรับประชาชนอายุ 19–59 ปี โดยใช้แนวคิดองค์ประกอบสมรรถภาพของ ACSM เช่น cardiorespiratory fitness, muscular fitness, flexibility, body composition และ neuromotor fitness</div>';
  document.getElementById('out').innerHTML=html;
 }
 </script>
