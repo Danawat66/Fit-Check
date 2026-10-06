@@ -54,7 +54,7 @@ input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;bac
 <div class="test"><div class="test-head"><div class="test-icon">GS</div><b>Gait Speed</b></div><small>เดิน 4 เมตร • กรอกเวลา (วินาที)</small><input id="gait" type="number" step=".01" placeholder="เช่น 3.50"></div>
 <div class="test"><div class="test-head"><div class="test-icon">1M</div><b>1 Mile Walk Test</b></div><small>กรอกเวลาเดินและ HR หลังทดสอบ</small><div class="grid"><input id="mileTime" type="number" step=".1" placeholder="นาที"><input id="mileHR" type="number" placeholder="HR bpm"></div></div>
 <div class="test"><div class="test-head"><div class="test-icon">SR</div><b>Sit and Reach</b></div><small>ความอ่อนตัว • เซนติเมตร</small><input id="reach" type="number" step=".1" placeholder="เช่น 18"></div>
-<div class="test"><div class="test-head"><div class="test-icon">BIA</div><b>องค์ประกอบร่างกาย</b></div><small>ผลจากเครื่อง BIA</small><div class="grid"><input id="fat" type="number" step=".1" placeholder="Body Fat %"><input id="skeletal" type="number" step=".1" placeholder="Skeletal Muscle %"></div></div>
+<div class="test"><div class="test-head"><div class="test-icon">BIA</div><b>BIA</b></div><small>องค์ประกอบร่างกาย • กรอกค่าจากเครื่อง BIA</small><div class="grid"><input id="fat" type="number" step=".1" placeholder="%Fat"><input id="skeletal" type="number" step=".1" placeholder="%Skeleton"></div><input id="biaWeight" type="number" step=".1" placeholder="Weight (kg)" style="margin-top:10px"></div>
 <div class="test"><div class="test-head"><div class="test-icon">ST</div><b>Stork Stand</b></div><small>ความสามารถในการทรงตัว • วินาที</small><input id="stork" type="number" step=".1" placeholder="เช่น 30"></div>
 <div class="test"><div class="test-head"><div class="test-icon">T</div><b>Agility T-Test</b></div><small>ความคล่องแคล่ว • วินาที</small><input id="ttest" type="number" step=".01" placeholder="เช่น 10.5"></div>
 <div class="test"><div class="test-head"><div class="test-icon">IL</div><b>Illinois Agility</b></div><small>ความคล่องแคล่ว • วินาที</small><input id="illinois" type="number" step=".01" placeholder="เช่น 18.2"></div>
@@ -99,7 +99,7 @@ function assess(){
    rows.push('<div class="summary-row"><div class="summary-head"><span>1 Mile Walk/Run · Estimated VO₂max</span><span class="summary-value">'+vo.toFixed(1)+' mL/kg/min</span></div><div class="bar"><div class="bar-fill mid" style="width:55%"></div></div></div>');
  }
  const extra=[
-   ['Stork balance','stork','วินาที'],['T-test agility','ttest','วินาที'],['Illinois agility','illinois','วินาที'],['Push up','pushup','ครั้ง'],['Vertical jump','jump','ซม.'],['BIA %Fat','fat','%'],['BIA %Skeletal muscle','skeletal','%']
+   ['Stork balance','stork','วินาที'],['T-test agility','ttest','วินาที'],['Illinois agility','illinois','วินาที'],['Push up','pushup','ครั้ง'],['Vertical jump','jump','ซม.'],['BIA %Fat','fat','%'],['BIA %Skeleton','skeletal','%'],['BIA Weight','biaWeight','kg']
  ];
  extra.forEach(e=>{
    const val=document.getElementById(e[1]).value;
