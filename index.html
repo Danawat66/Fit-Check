@@ -19,7 +19,118 @@ input,select{width:100%;padding:13px 14px;border:1px solid #d9e0eb;border-radius
 input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;background:#fff}
 .tests{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.test{padding:18px;border:1px solid #e4e9f1;border-radius:17px;background:#fbfcff}.test-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.test-icon{width:34px;height:34px;border-radius:10px;background:#eaf8f5;color:#098b78;display:grid;place-items:center;font-size:15px;font-weight:800}.test b{font-size:15px}.test small{display:block;color:#7a879b;margin-bottom:9px;font-size:12px}
 .actions{display:flex;gap:10px;margin-top:22px}.btn{border:0;border-radius:13px;padding:13px 22px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#1769e8,#0f9be8);color:#fff;box-shadow:0 8px 20px #1769e833}.secondary{background:#eef2f7;color:#526078}.btn:hover{transform:translateY(-1px)}
-.result-box{min-height:90px}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.metric{padding:16px;border-radius:15px;background:#f7f9fc;border:1px solid #e8edf4}.metric strong{display:block;font-size:22px;color:#1769e8;margin-top:5px}.level{display:inline-block;padding:5px 9px;border-radius:8px;background:#eaf8f5;color:#087b6c;font-size:12px;font-weight:800}
+.result-box{min-height:90px}.summary{background:#1d2027;color:#f4f6fb;border:1px solid #363b45;border-radius:16px;padding:24px}.summary-top{display:flex;align-items:center;gap:18px;padding-bottom:18px;border-bottom:1px solid #383d47}.score-num{font-size:42px;font-weight:800;color:#c7a35d;line-height:1}.score-label{font-size:12px;color:#aab0bb;margin-top:7px}.grade{background:#c7a35d;color:#1d2027;padding:9px 18px;border-radius:4px;font-weight:800}.summary-list{margin-top:8px}.summary-row{padding:12px 0}.summary-head{display:flex;justify-content:space-between;gap:12px;font-size:13px}.summary-value{color:#aeb4bf;white-space:nowrap}.bar{height:5px;background:#2a2f38;border-radius:0;margin-top:8px;overflow:hidden}.bar-fill{height:100%;background:#c7a35d}.bar-fill.low{background:#8b3f4d}.bar-fill.mid{background:#8f8451}.summary-note{font-size:11px;color:#a6aab3;font-style:italic;margin-top:12px;line-height:1.7}.level{display:inline-block;padding:4px 8px;border-radius:6px;background:#30353e;color:#d7dbe2;font-size:11px;font-weight:700;margin-left:8px}
+.note{padding:13px 15px;border-radius:13px;background:#fff8e8;color:#806000;font-size:12px;margin-top:16px}
+.footer{text-align:center;color:#8792a5;font-size:12px;padding:20px 0 35px}
+@media(max-width:720px){.hero h1{font-size:34px}.grid,.tests{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}.actions{flex-direction:column}.btn{width:100%}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="brand"><div class="logo">F</div><span>FitCheck</span></div>
+<h1>ประเมินสมรรถภาพทางกาย</h1>
+<p>ประเมินสมรรถภาพทางกายโดยใช้เกณฑ์มาตรฐานกรมพลศึกษา พ.ศ. 2562 และกรอบองค์ประกอบสมรรถภาพของ ACSM</p>
+<span class="badge">DPE 2562 · ACSM Fitness Framework</span>
+</div></header>
+<main class="wrap">
+<section class="card">
+<div class="section-title"><div class="section-icon">01</div><div><h2>ข้อมูลผู้ทดสอบ</h2><p class="sub">กรอกข้อมูลพื้นฐานเพื่อใช้ในการคำนวณผล</p></div></div>
+<div class="grid">
+<div class="field"><label>ชื่อ–สกุล</label><input id="name" placeholder="กรอกชื่อ–สกุล"></div>
+<div class="field"><label>อายุ (19–59 ปี)</label><input id="age" type="number" placeholder="เช่น 21"></div>
+<div class="field"><label>เพศ</label><select id="sex"><option value="male">ชาย</option><option value="female">หญิง</option></select></div>
+<div class="field"><label>น้ำหนัก (กก.)</label><input id="weight" type="number" step=".1" placeholder="เช่น 65"></div>
+<div class="field"><label>ส่วนสูง (ซม.)</label><input id="height" type="number" step=".1" placeholder="เช่น 170"></div>
+</div>
+</section>
+<section class="card">
+<div class="section-title"><div class="section-icon">02</div><div><h2>เกณฑ์มาตรฐานการประเมิน</h2><p class="sub">ใช้เกณฑ์กรมพลศึกษา พ.ศ. 2562 สำหรับรายการที่มีเกณฑ์อ้างอิง และจัดกลุ่มตามองค์ประกอบสมรรถภาพของ ACSM</p></div></div>
+<div class="note" style="margin-top:0">คะแนนระดับ 1–5 จะแสดงเมื่อรายการนั้นมีเกณฑ์มาตรฐานที่อ้างอิงได้โดยตรง ส่วนรายการที่ยังไม่มี cut-off ในเกณฑ์ DPE 2562 จะรายงานเป็นค่าผลการทดสอบเพื่อการเรียนรู้/ต้นแบบ</div>
+</section>
+<section class="card">
+<div class="section-title"><div class="section-icon">03</div><div><h2>แบบทดสอบสมรรถภาพ</h2><p class="sub">กรอกเฉพาะรายการที่มีผลการทดสอบ</p></div></div>
+<div class="tests">
+<div class="test"><div class="test-head"><div class="test-icon">GS</div><b>Gait Speed</b></div><small>เดิน 4 เมตร • กรอกเวลา (วินาที)</small><input id="gait" type="number" step=".01" placeholder="เช่น 3.50"></div>
+<div class="test"><div class="test-head"><div class="test-icon">1M</div><b>1 Mile Walk Test</b></div><small>กรอกเวลาเดินและ HR หลังทดสอบ</small><div class="grid"><input id="mileTime" type="number" step=".1" placeholder="นาที"><input id="mileHR" type="number" placeholder="HR bpm"></div></div>
+<div class="test"><div class="test-head"><div class="test-icon">SR</div><b>Sit and Reach</b></div><small>ความอ่อนตัว • เซนติเมตร</small><input id="reach" type="number" step=".1" placeholder="เช่น 18"></div>
+<div class="test"><div class="test-head"><div class="test-icon">BIA</div><b>องค์ประกอบร่างกาย</b></div><small>ผลจากเครื่อง BIA</small><div class="grid"><input id="fat" type="number" step=".1" placeholder="Body Fat %"><input id="skeletal" type="number" step=".1" placeholder="Skeletal Muscle %"></div></div>
+<div class="test"><div class="test-head"><div class="test-icon">ST</div><b>Stork Stand</b></div><small>ความสามารถในการทรงตัว • วินาที</small><input id="stork" type="number" step=".1" placeholder="เช่น 30"></div>
+<div class="test"><div class="test-head"><div class="test-icon">T</div><b>Agility T-Test</b></div><small>ความคล่องแคล่ว • วินาที</small><input id="ttest" type="number" step=".01" placeholder="เช่น 10.5"></div>
+<div class="test"><div class="test-head"><div class="test-icon">IL</div><b>Illinois Agility</b></div><small>ความคล่องแคล่ว • วินาที</small><input id="illinois" type="number" step=".01" placeholder="เช่น 18.2"></div>
+<div class="test"><div class="test-head"><div class="test-icon">PU</div><b>Push-up</b></div><small>ความแข็งแรงและความทนทาน • ครั้ง</small><input id="pushup" type="number" placeholder="เช่น 25"></div>
+<div class="test"><div class="test-head"><div class="test-icon">VJ</div><b>Vertical Jump</b></div><small>พลังระเบิดของขา • เซนติเมตร</small><input id="jump" type="number" step=".1" placeholder="เช่น 45"></div>
+</div>
+<div class="actions"><button class="btn primary" onclick="assess()">✓ ประเมินผล</button><button class="btn secondary" onclick="location.reload()">↻ ล้างข้อมูล</button></div>
+</section>
+<section class="card">
+<div class="section-title"><div class="section-icon">04</div><div><h2>ผลการประเมิน</h2><p class="sub">สรุปผลจากข้อมูลที่กรอก</p></div></div>
+<div id="out" class="result-box"><span style="color:#8a95a8">กรอกข้อมูลด้านบนแล้วกด “ประเมินผล”</span></div>
+</section>
+<div class="footer">FitCheck • Physical Fitness Assessment • DPE 2562 + ACSM</div>
+</main>
+<script>
+const ages=[[19,24],[25,29],[30,34],[35,39],[40,44],[45,49],[50,54],[55,59]];
+const bmi={male:[[13.94,20.25,24.84,29.41],[13.91,20.99,25.65,30.30],[14.13,21.12,26.23,31.18],[14.20,21.30,26.26,31.21],[14.27,21.37,26.30,31.22],[14.63,21.42,26.40,31.36],[14.65,21.41,26.62,31.74],[14.74,21.33,26.57,31.82]],female:[[13.59,19.15,23.89,28.63],[13.67,21.19,26.53,31.91],[13.71,21.08,26.63,32.18],[14.22,20.81,26.84,32.84],[14.36,21.30,26.59,31.93],[14.51,20.40,26.19,31.64],[14.88,22.51,26.95,31.48],[14.98,21.83,26.80,31.22]]};
+const reach={male:[[1,8,16,23],[1,8,15,22],[0,7,14,21],[-1,6,14,21],[-2,5,12,19],[-3,4,11,18],[-4,3,10,17],[-6,1,9,16]],female:[[4,12,19,26],[3,11,18,25],[2,9,16,22],[0,7,14,21],[-2,5,13,20],[-2,5,12,19],[-3,4,11,18],[-4,2,10,17]]};
+function v(id){return Number(document.getElementById(id).value)}
+function idx(a){return ages.findIndex(x=>a>=x[0]&&a<=x[1])}
+function assess(){
+ const a=v('age'),s=document.getElementById('sex').value,w=v('weight'),h=v('height');
+ if(a<19||a>59||!w||!h){alert('กรุณากรอกอายุ 19–59 ปี น้ำหนัก และส่วนสูง');return}
+ const i=idx(a),b=w/((h/100)**2),c=bmi[s][i];
+ const bmiLevel=b<=c[0]?1:b<=c[1]?2:b<=c[2]?3:b<=c[3]?4:5;
+ const bmiNames=['','ผอมมาก','ผอม','สมส่วน','ท้วม','อ้วน'];
+ const scoreItems=[];
+ scoreItems.push({name:'ดัชนีมวลกาย (BMI)',value:b.toFixed(1),unit:'',level:bmiLevel,label:bmiNames[bmiLevel]});
+ const r=document.getElementById('reach').value;
+ if(r!==''){
+   const x=Number(r),q=reach[s][i],l=x<=q[0]?1:x<=q[1]?2:x<=q[2]?3:x<=q[3]?4:5;
+   const names=['','ต่ำมาก','ต่ำ','ปานกลาง','ดี','ดีมาก'];
+   scoreItems.push({name:'Sit and Reach',value:x,unit:'ซม.',level:l,label:names[l]});
+ }
+ const rows=[];
+ scoreItems.forEach(it=>rows.push('<div class="summary-row"><div class="summary-head"><span>'+it.name+' <span class="level">'+it.label+'</span></span><span class="summary-value">'+it.value+' '+it.unit+'</span></div><div class="bar"><div class="bar-fill" style="width:'+(it.level*20)+'%"></div></div></div>'));
+ const g=document.getElementById('gait').value;
+ if(g) rows.push('<div class="summary-row"><div class="summary-head"><span>Gait speed</span><span class="summary-value">'+(4/Number(g)).toFixed(2)+' m/s</span></div><div class="bar"><div class="bar-fill mid" style="width:55%"></div></div></div>');
+ const mt=document.getElementById('mileTime').value,mh=document.getElementById('mileHR').value;
+ if(mt&&mh){
+   const vo=132.853-(.0769*w*2.2046226)-(.3877*a)+(s==='male'?6.315:0)-(3.2649*Number(mt))-(.1565*Number(mh));
+   rows.push('<div class="summary-row"><div class="summary-head"><span>1 Mile Walk/Run · Estimated VO₂max</span><span class="summary-value">'+vo.toFixed(1)+' mL/kg/min</span></div><div class="bar"><div class="bar-fill mid" style="width:55%"></div></div></div>');
+ }
+ const extra=[
+   ['Stork balance','stork','วินาที'],['T-test agility','ttest','วินาที'],['Illinois agility','illinois','วินาที'],['Push up','pushup','ครั้ง'],['Vertical jump','jump','ซม.'],['BIA %Fat','fat','%'],['BIA %Skeletal muscle','skeletal','%']
+ ];
+ extra.forEach(e=>{
+   const val=document.getElementById(e[1]).value;
+   if(val!=='') rows.push('<div class="summary-row"><div class="summary-head"><span>'+e[0]+'</span><span class="summary-value">'+val+' '+e[2]+'</span></div><div class="bar"><div class="bar-fill" style="width:50%"></div></div></div>');
+ });
+ const avg=scoreItems.reduce((sum,it)=>sum+it.level,0)/scoreItems.length;
+ const total=Math.round(avg*20);
+ const grade=avg>=4.5?'ดีมาก':avg>=3.5?'ดี':avg>=2.5?'ปานกลาง':avg>=1.5?'ต่ำ':'ต่ำมาก';
+ let html='<div class="summary"><div class="summary-top"><div><div class="score-num">'+total+'</div><div class="score-label">คะแนนจากเกณฑ์มาตรฐาน / 100</div></div><div class="grade">'+grade+'</div></div><div class="summary-list">'+rows.join('')+'</div><div class="summary-note">คะแนนรวมคำนวณจากรายการที่มีเกณฑ์ DPE 2562 ในระบบ ณ ปัจจุบัน ได้แก่ BMI และ Sit and Reach ส่วนรายการอื่นแสดงผลการทดสอบเพื่อประกอบการประเมิน และยังไม่ถูกนำไปคิดคะแนนรวมเพื่อไม่สร้างเกณฑ์ขึ้นเอง</div></div>';
+ document.getElementById('out').innerHTML=html;
+}!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitCheck | ระบบประเมินสมรรถภาพทางกาย</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f7fb;color:#182338}
+.hero{background:linear-gradient(135deg,#0f3d91,#1677ff 55%,#19b7a5);color:#fff;padding:34px 20px 48px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:#ffffff18;right:-100px;top:-170px}
+.wrap{max-width:1050px;margin:auto;padding:0 20px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px}.logo{width:44px;height:44px;border-radius:14px;background:#fff;color:#1769e8;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 8px 25px #001d4d33}
+.hero h1{font-size:42px;margin:38px 0 8px;letter-spacing:-1px}.hero p{margin:0;color:#e8f1ff;font-size:16px}.badge{display:inline-block;margin-top:18px;padding:8px 13px;border:1px solid #ffffff45;background:#ffffff18;border-radius:99px;font-size:13px}
+main{margin-top:-24px}.card{background:#fff;border:1px solid #e6ebf3;border-radius:22px;padding:26px;margin:18px 0;box-shadow:0 12px 35px #16345b12}
+.card h2{margin:0 0 6px;font-size:21px}.sub{color:#718096;font-size:13px;margin:0 0 20px}
+.section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}.section-icon{width:40px;height:40px;border-radius:12px;background:#eaf2ff;color:#1769e8;display:grid;place-items:center;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:#526078}
+input,select{width:100%;padding:13px 14px;border:1px solid #d9e0eb;border-radius:12px;background:#fbfcfe;color:#182338;font-size:14px;outline:none;transition:.2s}
+input:focus,select:focus{border-color:#3280ff;box-shadow:0 0 0 4px #3280ff18;background:#fff}
+.tests{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.test{padding:18px;border:1px solid #e4e9f1;border-radius:17px;background:#fbfcff}.test-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.test-icon{width:34px;height:34px;border-radius:10px;background:#eaf8f5;color:#098b78;display:grid;place-items:center;font-size:15px;font-weight:800}.test b{font-size:15px}.test small{display:block;color:#7a879b;margin-bottom:9px;font-size:12px}
+.actions{display:flex;gap:10px;margin-top:22px}.btn{border:0;border-radius:13px;padding:13px 22px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#1769e8,#0f9be8);color:#fff;box-shadow:0 8px 20px #1769e833}.secondary{background:#eef2f7;color:#526078}.btn:hover{transform:translateY(-1px)}
+.result-box{min-height:90px}.summary{background:#1d2027;color:#f4f6fb;border:1px solid #363b45;border-radius:16px;padding:24px}.summary-top{display:flex;align-items:center;gap:18px;padding-bottom:18px;border-bottom:1px solid #383d47}.score-num{font-size:42px;font-weight:800;color:#c7a35d;line-height:1}.score-label{font-size:12px;color:#aab0bb;margin-top:7px}.grade{background:#c7a35d;color:#1d2027;padding:9px 18px;border-radius:4px;font-weight:800}.summary-list{margin-top:8px}.summary-row{padding:12px 0}.summary-head{display:flex;justify-content:space-between;gap:12px;font-size:13px}.summary-value{color:#aeb4bf;white-space:nowrap}.bar{height:5px;background:#2a2f38;border-radius:0;margin-top:8px;overflow:hidden}.bar-fill{height:100%;background:#c7a35d}.bar-fill.low{background:#8b3f4d}.bar-fill.mid{background:#8f8451}.summary-note{font-size:11px;color:#a6aab3;font-style:italic;margin-top:12px;line-height:1.7}.level{display:inline-block;padding:4px 8px;border-radius:6px;background:#30353e;color:#d7dbe2;font-size:11px;font-weight:700;margin-left:8px}
 .note{padding:13px 15px;border-radius:13px;background:#fff8e8;color:#806000;font-size:12px;margin-top:16px}
 .footer{text-align:center;color:#8792a5;font-size:12px;padding:20px 0 35px}
 @media(max-width:720px){.hero h1{font-size:34px}.grid,.tests{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}.actions{flex-direction:column}.btn{width:100%}}
