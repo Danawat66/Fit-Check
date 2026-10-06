@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitCheck AI | ระบบประเมินสมรรถภาพทางกาย</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f7fb;color:#172033} .wrap{max-width:1000px;margin:auto;padding:24px} .hero{background:#1d4ed8;color:white;padding:40px 20px}.card{background:white;padding:24px;border-radius:18px;margin:20px 0;box-shadow:0 5px 20px #0001} input,select{padding:10px;width:100%;box-sizing:border-box;margin:5px 0 12px} button{padding:12px 18px;background:#2563eb;color:white;border:0;border-radius:10px;font-weight:bold;margin:5px 0;cursor:pointer}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.test{border:1px solid #ddd;padding:15px;border-radius:12px;margin:10px 0}.result{font-size:20px;font-weight:bold}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap"><h1>FitCheck AI</h1><p>ระบบประเมินสมรรถภาพทางกาย • กรมพลศึกษา พ.ศ. 2562 • อายุ 19–59 ปี</p></div></div>
+<main class="wrap">
+<div class="card"><h2>ข้อมูลผู้ทดสอบ</h2><div class="grid">
+<div><label>ชื่อ–สกุล</label><input id="name"></div><div><label>อายุ (19–59 ปี)</label><input id="age" type="number"></div>
+<div><label>เพศ</label><select id="sex"><option value="male">ชาย</option><option value="female">หญิง</option></select></div>
+<div><label>น้ำหนัก (กก.)</label><input id="weight" type="number" step=".1"></div><div><label>ส่วนสูง (ซม.)</label><input id="height" type="number" step=".1"></div>
+</div>
+<div class="test"><b>Gait Speed</b><input id="gait" type="number" step=".01" placeholder="เวลาเดิน 4 เมตร (วินาที)"></div>
+<div class="test"><b>1 Mile Walk Test</b><div class="grid"><input id="mileTime" type="number" step=".1" placeholder="เวลา (นาที)"><input id="mileHR" type="number" placeholder="HR หลังทดสอบ (bpm)"></div></div>
+<div class="test"><b>Sit and Reach</b><input id="reach" type="number" step=".1" placeholder="เซนติเมตร"></div>
+<div class="test"><b>BIA</b><div class="grid"><input id="fat" type="number" step=".1" placeholder="Body Fat %"><input id="skeletal" type="number" step=".1" placeholder="Skeletal Muscle %"></div></div>
+<div class="test"><b>Stork Stand</b><input id="stork" type="number" step=".1" placeholder="วินาที"></div>
+<div class="test"><b>Agility T-Test</b><input id="ttest" type="number" step=".01" placeholder="วินาที"></div>
+<div class="test"><b>Illinois Agility</b><input id="illinois" type="number" step=".01" placeholder="วินาที"></div>
+<div class="test"><b>Push-up</b><input id="pushup" type="number" placeholder="จำนวนครั้ง"></div>
+<div class="test"><b>Vertical Jump</b><input id="jump" type="number" step=".1" placeholder="เซนติเมตร"></div>
+<button onclick="assess()">ประเมินผล</button><button onclick="location.reload()">ล้างข้อมูล</button>
+</div>
+<div class="card"><h2>ผลการประเมิน</h2><div id="out" class="result">กรอกข้อมูลแล้วกด “ประเมินผล”</div></div>
+</main>
+<script>
+const ages=[[19,24],[25,29],[30,34],[35,39],[40,44],[45,49],[50,54],[55,59]];
+const bmi={male:[[13.94,20.25,24.84,29.41],[13.91,20.99,25.65,30.30],[14.13,21.12,26.23,31.18],[14.20,21.30,26.26,31.21],[14.27,21.37,26.30,31.22],[14.63,21.42,26.40,31.36],[14.65,21.41,26.62,31.74],[14.74,21.33,26.57,31.82]],female:[[13.59,19.15,23.89,28.63],[13.67,21.19,26.53,31.91],[13.71,21.08,26.63,32.18],[14.22,20.81,26.84,32.84],[14.36,21.30,26.59,31.93],[14.51,20.40,26.19,31.64],[14.88,22.51,26.95,31.48],[14.98,21.83,26.80,31.22]]};
+const reach={male:[[1,8,16,23],[1,8,15,22],[0,7,14,21],[-1,6,14,21],[-2,5,12,19],[-3,4,11,18],[-4,3,10,17],[-6,1,9,16]],female:[[4,12,19,26],[3,11,18,25],[2,9,16,22],[0,7,14,21],[-2,5,13,20],[-2,5,12,19],[-3,4,11,18],[-4,2,10,17]]};
+function v(id){return Number(document.getElementById(id).value)}
+function idx(a){return ages.findIndex(x=>a>=x[0]&&a<=x[1])}
+function assess(){
+ const a=v('age'),s=document.getElementById('sex').value,w=v('weight'),h=v('height');
+ if(a<19||a>59||!w||!h){alert('กรุณากรอกอายุ 19–59 ปี น้ำหนัก และส่วนสูง');return}
+ const i=idx(a),b=w/((h/100)**2),c=bmi[s][i];
+ let bl=b<=c[0]?1:b<=c[1]?2:b<=c[2]?5:b<=c[3]?4:1;
+ let html='<h3>'+((document.getElementById('name').value||'ผู้ทดสอบ'))+'</h3>';
+ html+='<p>BMI: '+b.toFixed(2)+' kg/m² → ระดับ '+bl+'/5</p>';
+ const r=document.getElementById('reach').value;
+ if(r!==''){let x=Number(r),q=reach[s][i],l=x<=q[0]?1:x<=q[1]?2:x<=q[2]?3:x<=q[3]?4:5;html+='<p>Sit and Reach: '+x+' cm → ระดับ '+l+'/5</p>'}
+ const g=document.getElementById('gait').value;if(g)html+='<p>Gait Speed: '+(4/Number(g)).toFixed(2)+' m/s</p>';
+ const mt=document.getElementById('mileTime').value,mh=document.getElementById('mileHR').value;
+ if(mt&&mh){const vo=132.853-(.0769*w*2.2046226)-(.3877*a)+(s==='male'?6.315:0)-(3.2649*Number(mt))-(.1565*Number(mh));html+='<p>Estimated VO₂max (Rockport): '+vo.toFixed(1)+' mL/kg/min</p>'}
+ html+='<hr><p>รายการเสริม: Stork, T-Test, Illinois, Push-up และ Vertical Jump แสดงค่าเพื่อการเรียน/ต้นแบบ และยังไม่ใช้ cut-off DPE 2562 ในระบบนี้</p>';
+ document.getElementById('out').innerHTML=html;
+}
+</script>
+</body></html>
